@@ -12,15 +12,21 @@ int main(int argc, char *argv[]) {
     // Input and output files
     ifstream inputFile;
     ofstream outputFile;
-    inputFile.open("test1.in");
+    inputFile.open("test3.in");
     outputFile.open("my-test1.ppm");
+    // Creating stringstream
+    string lines;
+    for(string line; getline(inputFile, line);) {
+        lines += line + '\n';
+    }
+    istringstream in(lines);
     // Creating ambient
     Ambient ambient;
-    ambient.createCamera(inputFile);
-    ambient.createLights(inputFile);
-    ambient.createPigments(inputFile);
-    ambient.createFinishings(inputFile);
-    ambient.createObjects(inputFile);
+    ambient.createCamera(in);
+    ambient.createLights(in);
+    ambient.createPigments(in);
+    ambient.createFinishings(in);
+    ambient.createObjects(in);
     // Calculate the color for each pixel
     ambient.createImage(image);
     //Print the image.

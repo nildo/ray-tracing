@@ -26,6 +26,11 @@ Point& Point::operator=(const Point& p) {
     return *this;
 }
 
+ostream& operator<<(ostream& os, Point& p) {
+    os << "[" << p.x << "," << p.y << "," << p.z << "]";
+    return os;
+}
+
 /**
  * Methods from Vector
  */

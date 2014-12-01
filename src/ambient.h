@@ -2,6 +2,7 @@
 #define AMBIENT_H
 
 #include <iostream>
+#include <sstream>
 #include "camera.h"
 #include "light.h"
 #include "pigment.h"
@@ -19,12 +20,16 @@ public:
     Pigment *pigments;
     Finishing *finishings;
     Object *objects;
+    int lightsSize;
+    int pigmentsSize;
+    int finishingsSize;
+    int objectsSize;
 
-    void createCamera(istream& file);
-    void createLights(istream& file);
-    void createPigments(istream& file);
-    void createFinishings(istream& file);
-    void createObjects(istream& file);
+    void createCamera(istringstream& in);
+    void createLights(istringstream& in);
+    void createPigments(istringstream& in);
+    void createFinishings(istringstream& in);
+    void createObjects(istringstream& in);
     void createImage(Image& image);
 };
 

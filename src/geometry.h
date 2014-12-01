@@ -17,6 +17,8 @@ public:
     Point& operator=(const Point& p);
 };
 
+ostream& operator<<(ostream& os, Point& p);
+
 class Vector {
 public:
     float x;
