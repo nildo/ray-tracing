@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <vector>
 #include "camera.h"
 #include "light.h"
 #include "pigment.h"
@@ -19,11 +20,10 @@ public:
     Light *lights;
     Pigment *pigments;
     Finishing *finishings;
-    Object *objects;
+    vector<Object*> objects;
     int lightsSize;
     int pigmentsSize;
     int finishingsSize;
-    int objectsSize;
 
     void createCamera(istringstream& in);
     void createLights(istringstream& in);

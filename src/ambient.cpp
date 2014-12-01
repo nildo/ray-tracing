@@ -20,6 +20,8 @@ void Ambient::createCamera(istringstream& in) {
     camera.up = up;
     camera.opening = opening;
     // Debug
+
+    cout << "Camera:" << endl;
     cout << camera.origin << endl;
     cout << camera.target << endl;
     cout << camera.up << endl;
@@ -40,6 +42,8 @@ void Ambient::createLights(istringstream& in) {
         Light light = Light(type, location, color, ac, ad, as);
         lights[i] = light;
     }
+
+    cout << "Lights:" << endl;
     for (int i = 0; i < lightsSize; i++) {
         cout << lights[i];
     }
@@ -48,7 +52,7 @@ void Ambient::createLights(istringstream& in) {
 void Ambient::createPigments(istringstream& in) {
     int n;
     in >> n;
-    pigments = new Pigments[n];
+    pigments = new Pigment[n];
     pigmentsSize = n;
     for (int i = 0; i < n; i++) {
         string type;
@@ -68,23 +72,85 @@ void Ambient::createPigments(istringstream& in) {
             Color color2 = Color(r, g, b);
             in >> lenght;
             Pigment pigment = Pigment(color1, color2, lenght);
+            pigments[i] = pigment;
         }
         if (type == "textmap") {
             string fileName;
             in >> fileName;
             float x, y, z, w;
             in >> x >> y >> z >> w;
-            
+            in >> x >> y >> z >> w;
+            // TODO: implement the textmap.
+            Textmap tm;
+            Pigment pigment = Pigment(tm);
+            pigments[i] = pigment;
         }
+    }
+    cout << "Pigments:" << endl;
+    for (int i = 0; i < pigmentsSize; i++) {
+        cout << pigments[i] << endl;
     }
 }
 
 void Ambient::createFinishings(istringstream& in) {
-
+    int n;
+    in >> n;
+    finishings = new Finishing[n];
+    finishingsSize = n;
+    for (int i = 0; i < n; i++) {
+        float ka, kd, ks, alpha, kr, kt, ior;
+        in >> ka >> kd >> ks >> alpha >> kr >> kt >> ior;
+        Finishing f = Finishing(ka, kd, ks, alpha, kr, kt, ior);
+        finishings[i] = f;
+    }
+    cout << "Finishings:" << endl;
+    for (int i = 0; i < finishingsSize; i++) {
+        cout << finishings[i] << endl;
+    }
 }
 
 void Ambient::createObjects(istringstream& in) {
-
+    int n;
+    in >> n;
+    for (int i = 0; i < n; i++) {
+        int p, f;
+        in >> p >> f;
+        Pigment pigment = pigments[p];
+        Finishing finishing = finishings[f];
+        string type;
+        in >> type;
+        if (type == "sphere") {
+            float x, y, z, r;
+            in >> x >> y >> z >> r;
+            Sphere *sphere = new Sphere(pigment, finishing, x, y, z, r);
+            objects.push_back(sphere);
+        }
+        if (type == "polyhedron") {
+            Polyhedron *polyhedron = new Polyhedron(pigment, finishing);
+            int m;
+            in >> m;
+            for (int j = 0; j < m; j++) {
+                float a, b, c, d;
+                in >> a >> b >> c >> d;
+                Plane plane = Plane(a, b, c, d);
+                polyhedron->addPlane(plane);
+            }
+            objects.push_back(polyhedron);
+        }   
+    }
+    cout << "Objects:" << endl;
+    for(vector<Object*>::iterator it = objects.begin(); it != objects.end(); ++it) {
+        Object *obj = *it;
+        if (obj->type == SPHERE) {
+            cout << "sphere ";
+            Sphere *i = (Sphere*) obj;
+            cout << i->x << ' ' << i->y << ' ' << i->z << ' ' << i->r << endl;
+        } else {
+            cout << "polyhedron ";
+            Polyhedron *i = (Polyhedron*) obj;
+            cout << i->planes.size() << endl;
+        }
+    }
 }
 
 void Ambient::createImage(Image& image) {

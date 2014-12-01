@@ -32,14 +32,4 @@ public:
 Vector operator+(const Vector& v1, const Vector& v2);
 ostream& operator<<(ostream& os, Vector& v);
 
-class Shape {
-public:
-
-};
-
-class Sphere : public Shape {
-public:
-    
-};
-
 #endif

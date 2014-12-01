@@ -4,7 +4,7 @@
 #include "color.h"
 #include "geometry.h"
 
-typedef enum type_of_light {
+typedef enum lightType {
     AMBIENT,
     SOURCE
 } LightType;
