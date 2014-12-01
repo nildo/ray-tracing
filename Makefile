@@ -43,4 +43,4 @@ remove: clean
 
 .PHONY: run
 run: $(BINDIR)/$(TARGET)
-	@cd $(BINDIR) &&	./$(TARGET)
+	@cd $(BINDIR) && ./$(TARGET) $(ARGS)

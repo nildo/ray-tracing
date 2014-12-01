@@ -6,10 +6,10 @@
 typedef enum pigmentType {
     SOLID,
     CHECKER,
-    TEXTMAP
+    TEXMAP
 } PigmentType;
 
-class Textmap {
+class Texmap {
 public:
     // TODO: implement this.
 };
@@ -19,12 +19,12 @@ public:
     PigmentType type;
     Color color1, color2;
     float length;
-    Textmap texture;
+    Texmap texture;
 
     Pigment();
     Pigment(Color color);
     Pigment(Color c1, Color c2, float l);
-    Pigment(Textmap tm);
+    Pigment(Texmap tm);
 
 };
 

@@ -57,6 +57,7 @@ void Ambient::createPigments(istringstream& in) {
     for (int i = 0; i < n; i++) {
         string type;
         in >> type;
+        cout << type << endl;
         if (type == "solid") {
             float r, g, b;
             in >> r >> g >> b;
@@ -74,14 +75,14 @@ void Ambient::createPigments(istringstream& in) {
             Pigment pigment = Pigment(color1, color2, lenght);
             pigments[i] = pigment;
         }
-        if (type == "textmap") {
+        if (type == "texmap") {
             string fileName;
             in >> fileName;
             float x, y, z, w;
             in >> x >> y >> z >> w;
             in >> x >> y >> z >> w;
-            // TODO: implement the textmap.
-            Textmap tm;
+            // TODO: implement the texmap.
+            Texmap tm;
             Pigment pigment = Pigment(tm);
             pigments[i] = pigment;
         }

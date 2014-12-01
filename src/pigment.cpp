@@ -13,8 +13,8 @@ Pigment::Pigment(Color c1, Color c2, float l) {
     this->color2 = c2;
     this->length = l;
 }
-Pigment::Pigment(Textmap tm) {
-    this->type = TEXTMAP;
+Pigment::Pigment(Texmap tm) {
+    this->type = TEXMAP;
     this->texture = tm;
 }
 
@@ -26,8 +26,8 @@ ostream& operator<<(ostream& os, Pigment& p) {
         case CHECKER:
             cout << p.type << " checker " << p.color1 << ' ' << p.color2 << ' ' << p.length;
         break;
-        case TEXTMAP:
-            cout << p.type << " textmap ";
+        case TEXMAP:
+            cout << p.type << " texmap ";
         break;
     }
     return os;
