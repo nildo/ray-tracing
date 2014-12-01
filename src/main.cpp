@@ -1,12 +1,31 @@
+#include <fstream>
 #include <iostream>
-#include "geometry.h"
+#include "ambient.h"
+#include "image.h"
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    Vector v1 = Vector(1,2,3);
-    Vector v2 = Vector(4,5,6);
-    Vector v3 = v1 + v2;
-    cout << v1 << " + " << v2 << " = " << v3 << endl;
+    int imgWidth = 800;
+    int imgHeight = 600;
+    Image image = Image(imgWidth, imgHeight);
+    // Input and output files
+    ifstream inputFile;
+    ofstream outputFile;
+    inputFile.open("test1.in");
+    outputFile.open("my-test1.ppm");
+    // Creating ambient
+    Ambient ambient;
+    ambient.createCamera(inputFile);
+    ambient.createLights(inputFile);
+    ambient.createPigments(inputFile);
+    ambient.createFinishings(inputFile);
+    ambient.createObjects(inputFile);
+    // Calculate the color for each pixel
+    ambient.createImage(image);
+    //Print the image.
+    image.print(outputFile);
+    inputFile.close();
+    outputFile.close();
     return 0;
 }

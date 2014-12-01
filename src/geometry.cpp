@@ -18,6 +18,14 @@ Point::Point(float x, float y, float z) {
     this->z = z;
 }
 
+
+Point& Point::operator=(const Point& p) {
+    this->x = p.x;
+    this->y = p.y;
+    this->z = p.z;
+    return *this;
+}
+
 /**
  * Methods from Vector
  */

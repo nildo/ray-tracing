@@ -1,3 +1,6 @@
+#ifndef GEOMETRY_H
+#define GEOMETRY_H
+
 #include <iostream>
 
 using namespace std;
@@ -10,6 +13,8 @@ public:
 
     Point();
     Point(float x, float y, float z);
+
+    Point& operator=(const Point& p);
 };
 
 class Vector {
@@ -24,3 +29,15 @@ public:
 
 Vector operator+(const Vector& v1, const Vector& v2);
 ostream& operator<<(ostream& os, Vector& v);
+
+class Shape {
+public:
+
+};
+
+class Sphere : public Shape {
+public:
+    
+};
+
+#endif

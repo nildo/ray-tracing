@@ -29,14 +29,18 @@ $(OBJECTS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "Compiled "$<" successfully!"
 
-.PHONEY: clean
+.PHONY: clean
 clean:
 	@$(rm) $(OBJECTS)
 	@$(rmdir) $(OBJDIR)
 	@echo "Cleanup complete!"
 
-.PHONEY: remove
+.PHONY: remove
 remove: clean
 	@$(rm) $(BINDIR)/$(TARGET)
 	@$(rmdir) $(BINDIR)
 	@echo "Executable removed!"
+
+.PHONY: run
+run: $(BINDIR)/$(TARGET)
+	@cd $(BINDIR) &&	./$(TARGET)
