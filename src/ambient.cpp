@@ -160,8 +160,34 @@ void Ambient::createImage(Image& image) {
             float xScreenPos = (float) i / (float) image.width;
             float yScreenPos = (float) j / (float) image.height;
             Ray ray = camera.makeRay(xScreenPos, yScreenPos);
-            cout << '[' << i << ',' << j << ']' << ' ';
-            cout << ray.origin << ' ' << ray.direction << endl;
+
+            //cout << '[' << i << ',' << j << ']' << ' ';
+            //cout << ray.origin << ' ' << ray.direction << endl;
+
+            bool intersectedAny = false;
+            Color color = lights[0].color;
+            for(vector<Object*>::iterator it = objects.begin();
+                    it != objects.end();
+                    ++it)
+            {
+                Object *obj = *it;
+                Point p;
+                float dMin;
+                if (obj->intersect(ray, p)) {
+                    if (!intersectedAny) {
+                        intersectedAny = true;
+                        color = obj->getColor(p);
+                        dMin = (p - ray.origin).length();
+                    } else {
+                        float d = (p - ray.origin).length();
+                        if (d < dMin) {
+                            color = obj->getColor(p);
+                            dMin = d;
+                        }
+                    }
+                }
+            }
+            image.pixels[i][j].color = color;
         }
     }
 }
