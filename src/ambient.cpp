@@ -155,5 +155,13 @@ void Ambient::createObjects(istringstream& in) {
 }
 
 void Ambient::createImage(Image& image) {
-
+    for (int i = 0; i < image.width; i++) {
+        for (int j = 0; j < image.height; j++) {
+            float xScreenPos = (float) i / (float) image.width;
+            float yScreenPos = (float) j / (float) image.height;
+            Ray ray = camera.makeRay(xScreenPos, yScreenPos);
+            cout << '[' << i << ',' << j << ']' << ' ';
+            cout << ray.origin << ' ' << ray.direction << endl;
+        }
+    }
 }

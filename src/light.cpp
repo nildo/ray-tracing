@@ -1,7 +1,6 @@
 #include "light.h"
 
 Light::Light() {
-
 }
 
 Light::Light(LightType type, Point location, Color color, float ac, float ad, float as) {
