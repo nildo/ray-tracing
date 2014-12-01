@@ -27,11 +27,11 @@ void Ambient::createCamera(istringstream& in) {
 }
 
 void Ambient::createLights(istringstream& in) {
-    int numberOfLights;
-    in >> numberOfLights;
-    lights = new Light[numberOfLights];
-    lightsSize = numberOfLights;
-    for (int i = 0; i < numberOfLights; i++) {
+    int n;
+    in >> n;
+    lights = new Light[n];
+    lightsSize = n;
+    for (int i = 0; i < n; i++) {
         float x, y, z, r, g, b, ac, ad, as;
         in >> x >> y >> z >> r >> g >> b >> ac >> ad >> as;
         Point location = Point(x, y, z);
@@ -46,7 +46,37 @@ void Ambient::createLights(istringstream& in) {
 }
 
 void Ambient::createPigments(istringstream& in) {
-    
+    int n;
+    in >> n;
+    pigments = new Pigments[n];
+    pigmentsSize = n;
+    for (int i = 0; i < n; i++) {
+        string type;
+        in >> type;
+        if (type == "solid") {
+            float r, g, b;
+            in >> r >> g >> b;
+            Color color = Color(r, g, b);
+            Pigment pigment = Pigment(color);
+            pigments[i] = pigment;
+        }
+        if (type == "checker") {
+            float r, g, b, lenght;
+            in >> r >> g >> b;
+            Color color1 = Color(r, g, b);
+            in >> r >> g >> b;
+            Color color2 = Color(r, g, b);
+            in >> lenght;
+            Pigment pigment = Pigment(color1, color2, lenght);
+        }
+        if (type == "textmap") {
+            string fileName;
+            in >> fileName;
+            float x, y, z, w;
+            in >> x >> y >> z >> w;
+            
+        }
+    }
 }
 
 void Ambient::createFinishings(istringstream& in) {
